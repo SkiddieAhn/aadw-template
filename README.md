@@ -4,7 +4,11 @@ Licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details
 > '직접 코드를 타이핑하는 사람'에서 '설계자이자 코드 리뷰어(QA)'로.
 > 이 문서는 그 전환을 지원하는 AI 협업 개발 가이드다.
 
-이 문서는 AI-Assisted Development Workflow(AADW)를 정의한다.
+<img width="700" height="350" alt="image" src="https://github.com/user-attachments/assets/d8a97856-2a88-4377-8ee4-e0e1c437cefc"/>  
+
+## 개요
+
+이 문서는 **AI-Assisted Development Workflow(AADW)** 를 정의한다.
 
 AADW는 사용자 정의에 따라 다양한 방식으로 구성될 수 있지만,
 이 문서에서는 **Document-driven, Task-based, Human-verify** 방식을 기반으로 한 개발 워크플로우를 설명한다.
