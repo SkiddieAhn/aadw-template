@@ -72,9 +72,7 @@ Human Verification
 
 ---
 
-<details>
-<summary><b>핵심 원칙</b></summary>
-<br>
+## 핵심 원칙
 
 AADW는 다음 원칙을 따른다.
 
@@ -83,13 +81,9 @@ AADW는 다음 원칙을 따른다.
 3. **Task-based execution** — 구현은 항상 Task 단위로 진행된다.
 4. **Human verification gate** — 각 단계의 결과는 사람이 검증한다.
 
-</details>
-
 ---
 
-<details>
-<summary><b>역할 분리</b></summary>
-<br>
+## 역할 분리
 
 | 역할 | 하는 일 |
 | --- | --- |
@@ -99,16 +93,10 @@ AADW는 다음 원칙을 따른다.
 > 사람은 초기 스펙을 결정하고, 각 단계의 검증 게이트를 담당한다.
 > AI는 할당받은 Task 하나를 끝내고 보고하는 것까지만 책임진다.
 > 다음 Task로 진행할지는 항상 사람이 결정한다.
->
-> **결과물의 품질은 AI의 성능이 아니라 사람의 설계와 검증 수준에 달려 있다.**
-
-</details>
 
 ---
 
-<details>
-<summary><b>Human Document</b></summary>
-<br>
+## Human Document
 
 Human Document는 AI가 개발 문서를 생성하는 기반이 되는 사람 중심의 요구사항 문서다.
 
@@ -140,13 +128,9 @@ Human Document는 아래 항목을 반드시 포함해야 한다.
 | 테스트 데이터 구조 | 테스트 케이스 구성 방식 |
 | 성능 기준 | latency, throughput, pass rate 등 |
 
-</details>
-
 ---
 
-<details>
-<summary><b>AI Documents</b></summary>
-<br>
+## AI Documents
 
 Human Document를 기반으로 AI가 생성하는 개발 문서들이다.
 
@@ -158,13 +142,9 @@ Human Document를 기반으로 AI가 생성하는 개발 문서들이다.
 | Roadmap | 개발을 어떤 순서로 진행할지 단계를 정의한 문서 |
 | Tasks | AI가 실제로 구현할 작업 목록. 하나씩 순서대로 진행된다 |
 
-</details>
-
 ---
 
-<details>
-<summary><b>Task 실행 사이클</b></summary>
-<br>
+## Task 실행 사이클
 
 Task 하나를 할당받으면 AI는 아래 순서를 자동으로 수행한다.
 테스트가 통과될 때까지의 구현 루프는 AI가 자율적으로 진행하며, 완료 후 사람이 검증 게이트를 담당한다.
@@ -202,8 +182,6 @@ Task N 테스트 실행                         ← AI
 
 **원칙**: 테스트가 전부 통과하기 전까지는 문서를 업데이트하지 않는다.
 문서는 항상 **검증이 끝난 상태**만 반영한다.
-
-</details>
 
 ---
 
