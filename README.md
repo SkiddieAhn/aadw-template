@@ -1,5 +1,6 @@
 # AI-Assisted Development Workflow (AADW)
 Licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
 > AI 코딩 어시스턴트의 등장으로 개발자의 역할이 전환되고 있다.
 > '직접 코드를 타이핑하는 사람'에서 '설계자이자 코드 리뷰어(QA)'로.
 > 이 문서는 그 전환을 지원하는 AI 협업 개발 가이드다.
@@ -198,6 +199,72 @@ Task N 테스트 실행                         ← AI
 
 **원칙**: 테스트가 전부 통과하기 전까지는 문서를 업데이트하지 않는다.
 문서는 항상 **검증이 끝난 상태**만 반영한다.
+
+</details>
+
+---
+
+<details>
+<summary><b>수정 철학 — Human Document만 고치면 나머지는 AI가 정렬한다</b></summary>
+<br>
+
+**전체를 다시 하지 않는다.**
+Human Document 하나만 고치면 AI가 diff를 보고 영향 범위를 스스로 판단한다.
+사람은 `document/`만 수정하고, 나머지 문서 갱신과 Task 재정렬은 AI가 자동으로 수행한다.
+
+```
+Human Document 수정                       ← 사람
+      ↓
+기존 AI 문서와 변경점 비교                 ← AI
+      ↓
+PRD / Spec / Architecture 갱신            ← AI
+      ↓
+Human Verification                        ← 사람
+      ↓
+Roadmap / Tasks 갱신                      ← AI
+      ↓
+Human Verification                        ← 사람
+      ↓
+영향받는 Task만 재수행                     ← AI
+      ↓
+Human Verification                        ← 사람
+```
+
+**Step 1 — 변경점 비교 및 문서 갱신 요청**
+
+```
+document/ 안의 원본 문서가 수정됐어.
+기존 docs/prd.md, docs/spec.md, docs/architecture.md와 비교해서
+변경된 부분을 파악하고 각 문서를 갱신해줘.
+```
+
+> ✅ 갱신된 PRD / Spec / Architecture를 직접 읽고 내용이 맞는지 확인한다.
+> 문제가 없으면 Step 2를 요청한다.
+
+---
+
+**Step 2 — Roadmap / Tasks 갱신 요청**
+
+```
+변경된 docs/를 기반으로
+docs/roadmap.md와 tasks/tasks.md에서 영향받는 부분을 갱신해줘.
+새로 추가된 Task와 수정이 필요한 Task를 명확히 구분해줘.
+```
+
+> ✅ 갱신된 Roadmap과 Task 목록을 확인한다.
+> 영향받는 Task 범위가 예상과 다르면 수정을 요청한다.
+> 문제가 없으면 Step 3을 요청한다.
+
+---
+
+**Step 3 — 영향받는 Task 재수행 요청**
+
+```
+tasks/tasks.md에서 변경의 영향을 받은 Task 목록을 확인하고
+해당 Task들만 순서대로 재수행해줘.
+```
+
+> ✅ 각 Task 완료 보고를 받을 때마다 직접 실행하여 결과를 검증한다.
 
 </details>
 
