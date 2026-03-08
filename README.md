@@ -359,3 +359,13 @@ AI는 대화가 끊기면 이전 내용을 기억하지 못한다.
 Task가 완료될 때마다 AI가 자동으로 업데이트한다.
 
 → [implementation-context.md 예시](https://github.com/SkiddieAhn/aadw-template/blob/main/implementation-context.md)
+
+---
+
+## 문서 정보
+
+| 항목 | 내용 |
+|---|---|
+| 버전 | v1.0.0 |
+| 작성자 | Sunghyun Ahn (SkiddieAhn) |
+| 이메일 | skd@yonsei.ac.kr |
