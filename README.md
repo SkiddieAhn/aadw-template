@@ -159,7 +159,7 @@ Human Document를 기반으로 AI가 생성하는 개발 문서들이다.
 <br>
 
 Task 하나를 할당받으면 AI는 아래 순서를 자동으로 수행한다.
-사람이 중간에 개입할 필요 없다.
+테스트가 통과될 때까지의 구현 루프는 AI가 자율적으로 진행하며, 완료 후 사람이 검증 게이트를 담당한다.
 
 ```
 Task N 할당                               ← 사람
@@ -216,18 +216,21 @@ my-project/
 │
 ├─ docs/                         ← AI가 Human Document를 읽고 생성하는 개발 문서들
 │  ├─ prd.md                     ← 무엇을 왜 만드는지 설명 (기획 문서)
-│  ├─ prd.template.md            ← PRD 작성용 템플릿
 │  ├─ spec.md                    ← 입출력 형식, 동작 규칙 정의 (계약 문서)
-│  ├─ spec.template.md           ← Spec 작성용 템플릿
 │  ├─ architecture.md            ← 모듈 구조, 데이터 흐름 설계 (설계 문서)
-│  ├─ architecture.template.md   ← Architecture 작성용 템플릿
-│  ├─ roadmap.md                 ← 개발 단계와 순서 정의 (계획 문서)
-│  └─ roadmap.template.md        ← Roadmap 작성용 템플릿
+│  └─ roadmap.md                 ← 개발 단계와 순서 정의 (계획 문서)
+│
+├─ docs_template/                ← 각 문서 작성을 위한 빈 양식 모음
+│  ├─ prd.template.md
+│  ├─ spec.template.md
+│  ├─ architecture.template.md
+│  ├─ roadmap.template.md
+│  ├─ tasks.template.md
+│  └─ implementation-context.template.md
 │
 ├─ tasks/
-│  ├─ tasks.md                   ← AI가 구현할 작업 목록 + 진행 상태 + 완료 결과
-│  │                                (프로젝트가 커지면 roadmap 단계별로 파일을 나눌 수 있다)
-│  └─ tasks.template.md          ← Tasks 작성용 템플릿
+│  └─ tasks.md                   ← AI가 구현할 작업 목록 + 진행 상태 + 완료 결과
+│                                   (프로젝트가 커지면 roadmap 단계별로 파일을 나눌 수 있다)
 │
 ├─ src/                          ← AI가 실제로 작성하는 구현 코드
 │
@@ -241,8 +244,7 @@ my-project/
 │  └─ run_main.py                ← 프로그램 실행 진입점 (사람이 직접 실행하여 결과를 검증할 때도 사용)
 │
 ├─ .ai-context/
-│  ├─ implementation-context.md          ← 현재 프로젝트 상태 요약 (세션 초기화 시 AI에게 제공)
-│  └─ implementation-context.template.md ← 세션 복구 문서 템플릿
+│  └─ implementation-context.md  ← 현재 프로젝트 상태 요약 (세션 초기화 시 AI에게 제공)
 │
 ├─ CLAUDE.md                     ← AI가 이 프로젝트에서 항상 따라야 할 규칙 파일
 └─ README.md
@@ -417,7 +419,7 @@ prd.md, roadmap.md, tasks.md를 참고해서
 | `tasks.md` | Task 목록 + 진행 상태 + 완료 결과 | 🔧 실제 개발용 | AI + 사람 |
 | `implementation-context.md` | 현재 프로젝트 상태 요약 (세션 초기화 시 사용) | 🔧 실제 개발용 | AI |
 | `CLAUDE.md` | AI가 항상 따라야 할 프로젝트 규칙 | 🔧 실제 개발용 | AI |
-| `*.template.md` | 각 문서 작성을 위한 빈 양식 | 📋 문서 제작용 | 사람 |
+| `docs_template/` | 각 문서 작성을 위한 빈 양식 모음 | 📋 문서 제작용 | 사람 |
 
 ---
 
