@@ -212,40 +212,8 @@ document/
 `CLAUDE.md`는 AI가 이 프로젝트에서 항상 따라야 할 규칙을 적어두는 파일이다.
 Claude Code, Cursor 같은 AI 코딩 툴은 작업을 시작할 때 이 파일을 자동으로 읽는다.
 
-아래 내용을 복사해서 `CLAUDE.md`에 붙여넣으면 된다.
-
-```markdown
-# 프로젝트 규칙
-
-## 이 프로젝트의 개발 방식
-이 프로젝트는 Document-driven AI development workflow 방식으로 진행된다.
-사람은 Human Document로 요구사항과 스펙을 정의하고, 각 단계의 검증 게이트를 담당한다.
-AI는 각 단계를 실행하고 보고한다.
-
-## 참고 문서 구조
-- document/ : 사람이 작성한 Human Document
-- docs/      : AI가 생성한 개발 문서 (prd, spec, architecture, roadmap)
-- tasks/     : Task 목록과 진행 상태
-- .ai-context/implementation-context.md : 현재 프로젝트 상태 요약
-
-## Task 완료 규칙
-Task 구현이 끝나면 반드시 아래 순서를 따른다.
-
-1. Task N 테스트 실행
-2. Task 1 ~ N-1 테스트 재실행 (이전 기능이 망가지지 않았는지 확인)
-3. 전부 통과하면:
-   - tasks.md에 결과 기록 (상태, 생성된 파일, 테스트 결과, 특이사항)
-   - .ai-context/implementation-context.md 현재 상태 업데이트
-   - 완료 보고
-4. 실패하면:
-   - 원인 파악 및 수정 후 다시 테스트
-   - 테스트가 통과하기 전까지 문서 업데이트 금지
-
-## 문서 작성 규칙
-PR description, README 등 외부 공개 문서는
-사람이 명시적으로 요청한 경우에만 작성한다.
-자동으로 생성하지 않는다.
-```
+아래 템플릿을 복사해서 사용한다.
+→ [CLAUDE.md 템플릿](https://github.com/SkiddieAhn/aadw-template/blob/main/CLAUDE.md)
 
 ---
 
@@ -378,35 +346,9 @@ tasks/
 ## tasks.md 작성 형식
 
 Task를 정의할 때와 완료했을 때 모두 이 파일에 기록한다.
-AI는 Task가 끝나면 자동으로 아래 항목들을 채워 넣는다.
+AI는 Task가 끝나면 자동으로 항목들을 채워 넣는다.
 
-```markdown
-## Task 3: 결과 파일 생성기 구현
-
-**상태**: ✅ 완료
-**참고 문서**: `docs/spec.md` 3.2절, `docs/architecture.md` 2절
-**선행 Task**: Task 1 (입력 파일 읽기), Task 2 (검증 실행)
-
-### 구현 내용
-- 검증 결과를 보기 좋은 형태로 묶어서 파일로 저장
-- JSON과 YAML 형식 모두 지원
-
-### 완료 기준
-- [x] spec.md에 정의된 출력 형식을 정확히 따름
-- [x] Task 2의 결과물을 입력으로 받아 정상 동작
-- [x] tests/task_tests/test_task3.py 전부 통과
-
-### 생성된 파일
-- src/result_generator/builder.py
-- src/result_generator/writer.py
-
-### 테스트 결과
-- Task 3 테스트: 12/12 통과
-- 이전 Task 테스트 (Task 1~2): 전부 통과
-
-### 특이사항
-YAML로 저장할 때 특수문자가 포함된 경우 깨지는 문제가 있어서 별도 처리 추가함
-```
+→ [tasks.md 예시](https://github.com/SkiddieAhn/aadw-template/blob/main/tasks.md)
 
 ---
 
@@ -416,24 +358,4 @@ AI는 대화가 끊기면 이전 내용을 기억하지 못한다.
 이 파일은 세션이 초기화됐을 때 AI에게 건네주는 현황 요약 문서다.
 Task가 완료될 때마다 AI가 자동으로 업데이트한다.
 
-```markdown
-## 프로젝트 한 줄 설명
-[프로젝트 설명]
-
-## 주요 모듈
-- 입력 파일 읽기: 시나리오 파일을 불러와서 파싱
-- 검증 실행: 규칙에 따라 입력값 검사
-- 결과 파일 생성: 검증 결과를 파일로 저장
-- 점수 계산: 최종 점수 산출
-
-## 주의사항
-- 출력 파일 형식은 반드시 spec.md 2절 형식을 따를 것
-- 외부 API 사용 없음, 로컬에서만 실행
-
-## 현재 상태
-- Task 1 ✅ / Task 2 ✅ / Task 3 ✅
-- Task 4는 아직 할당되지 않음
-
-## 지금까지 결정한 것들
-- YAML 저장 시 특수문자 처리: Task 3에서 별도 처리 방식 적용함
-```
+→ [implementation-context.md 예시](https://github.com/SkiddieAhn/aadw-template/blob/main/implementation-context.md)
