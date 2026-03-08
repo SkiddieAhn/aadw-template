@@ -211,9 +211,10 @@ Task N 테스트 실행                         ← AI
 <summary><b>수정 철학 — Human Document만 고치면 나머지는 AI가 정렬한다</b></summary>
 <br>
 
-**전체를 다시 하지 않는다.**
-Human Document 하나만 고치면 AI가 diff를 보고 영향 범위를 스스로 판단한다.
-사람은 `document/`만 수정하고, 나머지 문서 갱신과 Task 재정렬은 AI가 자동으로 수행한다.
+> [!CAUTION]
+> **전체를 다시 하지 않는다.**
+> Human Document 하나만 고치면 AI가 diff를 보고 영향 범위를 스스로 판단한다.
+> 사람은 `document/`만 수정하고, 나머지 문서 갱신과 Task 재정렬은 AI가 자동으로 수행한다.
 
 ```
 Human Document 수정                       ← 사람
