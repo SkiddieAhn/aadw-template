@@ -466,7 +466,7 @@ tasks/
 Task를 정의할 때와 완료했을 때 모두 이 파일에 기록한다.
 AI는 Task가 끝나면 자동으로 항목들을 채워 넣는다.
 
-→ [tasks.md 예시](https://github.com/SkiddieAhn/aadw-template/blob/main/tasks.md)
+→ [tasks.md 예시](https://github.com/SkiddieAhn/aadw-template/blob/main/examples/todo-cli/tasks/tasks.md)
 
 </details>
 
@@ -478,7 +478,7 @@ AI는 대화가 끊기면 이전 내용을 기억하지 못한다.
 이 파일은 세션이 초기화됐을 때 AI에게 건네주는 현황 요약 문서다.
 Task가 완료될 때마다 AI가 자동으로 업데이트한다.
 
-→ [implementation-context.md 예시](https://github.com/SkiddieAhn/aadw-template/blob/main/implementation-context.md)
+→ [implementation-context.md 예시](https://github.com/SkiddieAhn/aadw-template/blob/main/examples/todo-cli/.ai-context/implementation-context.md)
 
 </details>
 
