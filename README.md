@@ -1,6 +1,8 @@
 # AI-Assisted Development Workflow (AADW)
 Licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
+<img width="700" height="350" alt="image" src="https://github.com/user-attachments/assets/d8a97856-2a88-4377-8ee4-e0e1c437cefc"/>  
+
 > [!IMPORTANT]
 > AI 코딩 어시스턴트의 등장으로 개발자의 역할이 전환되고 있다.
 > '직접 코드를 타이핑하는 사람'에서 '설계자이자 코드 리뷰어(QA)'로.
