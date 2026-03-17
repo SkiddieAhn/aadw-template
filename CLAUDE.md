@@ -1,65 +1,245 @@
 # 프로젝트 규칙
 
 ## 이 프로젝트의 개발 방식
-이 프로젝트는 Document-driven AI development workflow 방식으로 진행된다.
-사람은 Human Document로 요구사항과 스펙을 정의하고, 각 단계의 검증 게이트를 담당한다.
-AI는 각 단계를 실행하고 보고한다.
 
-## 참고 문서 구조
-- document/    : 사람이 작성한 Human Document
-- docs/        : AI가 생성한 개발 문서 (prd, spec, architecture, roadmap)
-- template/ : 각 문서 작성을 위한 빈 양식 모음
-- tasks/       : Task 목록과 진행 상태
-- .ai-context/implementation-context.md : 현재 프로젝트 상태 요약
+이 프로젝트는 **Document-driven AI development workflow** 방식으로 진행된다.
 
-## 문서 생성 규칙
-docs/ 및 tasks/ 하위 문서를 생성할 때는 반드시 template/ 의 해당 양식을 참고한다.
+* 사람: Human Document 작성, 요구사항 정의, 검증 게이트 담당
+* AI: 각 단계 실행 및 결과 보고
 
-| 생성할 문서 | 참고 템플릿 |
-|---|---|
-| docs/prd.md | template/prd.template.md |
-| docs/spec.md | template/spec.template.md |
-| docs/architecture.md | template/architecture.template.md |
-| docs/roadmap.md | template/roadmap.template.md |
-| tasks/tasks.md | template/tasks.template.md |
+AI는 항상 **아래 정의된 Task 실행 사이클을 따른다.**
+단계를 건너뛰거나 순서를 변경하지 않는다.
+
+---
+
+# 참고 문서 구조
+
+* `document/` : 사람이 작성한 Human Document
+* `docs/` : AI가 생성한 개발 문서 (prd, spec, architecture, roadmap)
+* `template/` : 각 문서 작성을 위한 빈 양식 모음
+* `tasks/` : Task 목록과 진행 상태
+* `tests/` : 테스트 코드 및 테스트 보고서
+* `.ai-context/implementation-context.md` : 현재 프로젝트 상태 요약
+
+---
+
+# 문서 생성 규칙
+
+docs/ 및 tasks/ 하위 문서를 생성할 때는 반드시 `template/` 의 해당 양식을 참고한다.
+
+| 생성할 문서                                | 참고 템플릿                                      |
+| ------------------------------------- | ------------------------------------------- |
+| docs/prd.md                           | template/prd.template.md                    |
+| docs/spec.md                          | template/spec.template.md                   |
+| docs/architecture.md                  | template/architecture.template.md           |
+| docs/roadmap.md                       | template/roadmap.template.md                |
+| tasks/tasks.md                        | template/tasks.template.md                  |
 | .ai-context/implementation-context.md | template/implementation-context.template.md |
 
-## Task 완료 규칙
+---
+
+# Task 실행 사이클
+
+모든 Task는 다음 lifecycle을 따른다.
+
+```
+Task N 할당                                              ← 사람
+      ↓
+tasks.md: TODO → IN PROGRESS                             ← AI
+implementation-context.md: 현재 상태 반영                ← AI
+      ↓
+Task N 테스트 코드 작성 (Test-first)                      ← AI
+      ↓
+Task N 구현                                              ← AI
+      ↓
+Task N 테스트 실행                                        ← AI
+      ↓
+Task N 테스트 결과 보고서 작성                            ← AI
+      ↓
+이전 Task 테스트 재실행 (Task 1 ~ N-1)                    ← AI
+      ↓
+    ┌─ 실패 ──→ 원인 파악 및 수정 → 테스트 재실행          ← AI
+    │           (3회 반복 실패 시 사람에게 에스컬레이션)
+    │
+    └─ 전부 통과
+            ↓
+         완료 보고 → 사람에게 전달                        ← AI
+            ↓
+         사람이 직접 실행 및 검증                         ← 사람
+            ↓
+    ┌─ 재작업 필요 ──→ IN PROGRESS 유지 후 수정           ← 사람
+    │
+    └─ 승인
+            ↓
+tasks.md: IN PROGRESS → DONE                              ← AI
+implementation-context.md 업데이트                        ← AI
+```
+
+---
+
+# 테스트 작성 규칙
+
+모든 Task는 **Test-first 방식**으로 진행한다.
+
+순서:
+
+1. 테스트 코드 작성
+2. 기능 구현
+3. 테스트 실행
+4. 테스트 결과 보고서 작성
+
+구현 전에 테스트를 실행하면 **테스트 실패가 정상이다.**
+
+---
+
+# 테스트 코드 규칙
+
+각 Task는 반드시 전용 테스트 파일을 가진다.
+
+예시
+
+```
+tests/task_tests/test_task1.py
+tests/task_tests/test_task2.py
+```
+
+테스트는 다음을 검증해야 한다.
+
+* 정상 입력 처리
+* 경계값 처리
+* 오류 처리
+* 이전 Task와의 호환성
+
+---
+
+# 테스트 결과 보고서 규칙
+
+AI는 테스트 실행 후 반드시 **테스트 결과 보고서**를 작성한다.
+
+경로 예시
+
+```
+tests/reports/task1-test-report.md
+tests/reports/task2-test-report.md
+```
+
+보고서에는 다음 내용을 포함한다.
+
+### 테스트 목적
+
+이 테스트가 무엇을 검증하는지 설명
+
+### 테스트 입력
+
+사용된 입력 데이터
+
+### 예상 결과
+
+정상 동작 시 기대 결과
+
+### 실제 실행 결과
+
+테스트 실행 결과
+
+### 테스트 결과
+
+* PASS / FAIL
+* 통과 개수
+
+### 테스트 코드 위치
+
+```
+tests/task_tests/test_taskN.py
+```
+
+### 비고
+
+특이사항 또는 테스트 설계 의도
+
+**원칙**
+
+테스트 결과 보고서가 없는 테스트는
+실행된 것으로 간주하지 않는다.
+
+---
+
+# Task 완료 규칙
+
 Task 구현이 끝나면 반드시 아래 순서를 따른다.
 
-1. Task 시작 시:
-   - tasks.md: TODO → IN PROGRESS
-   - implementation-context.md: 현재 상태 반영
-2. Task N 테스트 실행
-3. Task 1 ~ N-1 테스트 재실행 (이전 기능이 망가지지 않았는지 확인)
-4. 전부 통과하면 완료 보고 (문서 업데이트는 하지 않음)
-5. 실패하면 원인 파악 및 수정 후 다시 테스트 (3회 반복 실패 시 사람에게 에스컬레이션)
-6. 사람이 직접 검증 후 승인하면:
-   - tasks.md: IN PROGRESS → DONE + 결과 기록 (생성된 파일, 테스트 결과, 특이사항)
-   - implementation-context.md: 현재 상태 반영
-7. 사람이 재작업을 요청하면 IN PROGRESS 유지, 수정 후 재시도
+1️⃣ Task 시작 시
 
-**원칙**: 사람의 승인이 완료되기 전까지 Task 상태를 DONE으로 변경하지 않는다.
-문서는 항상 사람이 검증한 상태만 반영한다.
+* `tasks.md`: TODO → IN PROGRESS
+* `implementation-context.md`: 현재 상태 반영
 
-## tasks.md 업데이트 형식
-Task 상태는 다음 세 가지만 사용한다: 📋 TODO / 🔄 IN PROGRESS / ✅ DONE
-- 작업 시작 시: TODO → IN PROGRESS
-- 사람 승인 후: IN PROGRESS → DONE (이때만 나머지 항목을 채워 넣음)
+2️⃣ Task N 테스트 실행
+
+3️⃣ 이전 Task 테스트 재실행
+(Task 1 ~ N-1)
+
+4️⃣ 전부 통과 시 완료 보고
+(문서 업데이트는 하지 않음)
+
+5️⃣ 실패 시
+
+* 원인 분석
+* 수정 후 재테스트
+* 3회 실패 시 사람에게 에스컬레이션
+
+6️⃣ 사람이 검증 후 승인하면
+
+* `tasks.md`: IN PROGRESS → DONE
+* 결과 기록
+* `implementation-context.md` 업데이트
+
+7️⃣ 사람이 재작업 요청 시
+
+* IN PROGRESS 유지
+* 수정 후 재시도
+
+---
+
+**원칙**
+
+사람의 승인이 완료되기 전까지
+Task 상태를 **DONE으로 변경하지 않는다.**
+
+문서는 항상 **사람이 검증한 상태만 반영한다.**
+
+---
+
+# tasks.md 업데이트 형식
+
+Task 상태는 세 가지만 사용한다.
+
+📋 TODO / 🔄 IN PROGRESS / ✅ DONE
+
+* 작업 시작 시
+  TODO → IN PROGRESS
+
+* 사람 승인 후
+  IN PROGRESS → DONE
+
+---
 
 ```
 ## Task N: [제목]
 
-**상태**: ✅ DONE
-**참고 문서**: `docs/spec.md` [절], `docs/architecture.md` [절]
-**선행 Task**: [선행 Task 목록 또는 없음]
+상태: ✅ DONE
+
+참고 문서:
+docs/spec.md [절]
+docs/architecture.md [절]
+
+선행 Task:
+[선행 Task 목록 또는 없음]
 
 ### 구현 내용
-- [구현한 내용]
+- [구현 내용]
 
 ### 완료 기준
-- [x] [기준 1]
-- [x] [기준 2]
+- [x] 기준 1
+- [x] 기준 2
 - [x] tests/task_tests/test_taskN.py 전부 통과
 
 ### 생성된 파일
@@ -67,35 +247,46 @@ Task 상태는 다음 세 가지만 사용한다: 📋 TODO / 🔄 IN PROGRESS /
 
 ### 테스트 결과
 - Task N 테스트: N/N 통과
-- 이전 Task 테스트 (Task 1~N-1): 전부 통과
+- 이전 Task 테스트: 전부 통과
 
 ### 특이사항
-[특이사항 없으면 "없음"]
+없음
 ```
 
-## implementation-context.md 업데이트 형식
-Task 시작 시, 사람 승인 후 두 시점 모두 업데이트한다.
-아래 항목을 유지하며 현재 상태를 반영한다.
+---
+
+# implementation-context.md 업데이트 형식
+
+Task 시작 시 / 사람 승인 후
+두 시점 모두 업데이트한다.
 
 ```
 ## 프로젝트 한 줄 설명
 [프로젝트 설명]
 
 ## 주요 모듈
-- [모듈명]: [역할 설명]
+- [모듈]: 역할 설명
 
 ## 주의사항
 - [주의사항]
 
 ## 현재 상태
-- Task 1 ✅ DONE / Task 2 🔄 IN PROGRESS / Task 3 📋 TODO
-- 현재 진행 중: Task N (구현 중 / 사람 검증 대기 중)
+Task 1 ✅ DONE
+Task 2 🔄 IN PROGRESS
+Task 3 📋 TODO
+
+현재 진행 중:
+Task N (구현 중 / 사람 검증 대기)
 
 ## 지금까지 결정한 것들
-- [결정 사항]: [Task N에서 적용한 내용]
+- [결정 사항]
 ```
 
-## 공개 문서 작성 규칙
-PR description, README 등 외부 공개 문서는
+---
+
+# 공개 문서 작성 규칙
+
+PR description, README 등 **외부 공개 문서**는
 사람이 명시적으로 요청한 경우에만 작성한다.
-자동으로 생성하지 않는다.
+
+AI가 자동으로 생성하지 않는다.
