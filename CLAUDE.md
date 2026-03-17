@@ -58,7 +58,9 @@ docs/ 및 tasks/ 하위 문서를 생성할 때는 반드시 `template/` 의 해
 | tasks/tasks.md | template/tasks.template.md |
 | .ai-context/implementation-context.md | template/implementation-context.template.md |
 
-`template/` 폴더가 존재하지 않는 경우, 템플릿 없이 문서를 생성하되 사람에게 해당 사실을 먼저 알린다.
+template이 없는 경우:
+- docs 내 유사 문서를 참고하여 작성한다
+- 없으면 표준 구조를 사용한다
 
 ---
 
@@ -281,39 +283,7 @@ tests/task_tests/test_taskN.py
 
 # Task 완료 규칙
 
-Task 구현이 끝나면 반드시 아래 순서를 따른다.
-
-### 1️⃣ Task 시작 시
-
-* `tasks.md`: TODO → IN PROGRESS
-* `implementation-context.md`: 현재 상태 반영
-
-### 2️⃣ Task N 테스트 실행
-
-### 3️⃣ 이전 Task 테스트 재실행
-
-(Task 1 ~ N-1)
-
-### 4️⃣ 전부 통과 시 완료 보고
-
-(문서 업데이트는 하지 않음)
-
-### 5️⃣ 실패 시
-
-* 원인 분석
-* 수정 후 재테스트
-* 3회 실패 시 사람에게 에스컬레이션
-
-### 6️⃣ 사람이 검증 후 승인하면
-
-* `tasks.md`: IN PROGRESS → DONE
-* 결과 기록
-* `implementation-context.md` 업데이트
-
-### 7️⃣ 사람이 재작업 요청 시
-
-* IN PROGRESS 유지
-* 수정 후 재시도
+모든 Task 완료 판단은 Task 실행 사이클을 기준으로 한다.
 
 ---
 
