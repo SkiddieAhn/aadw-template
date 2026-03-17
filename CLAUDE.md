@@ -58,9 +58,8 @@ docs/ 및 tasks/ 하위 문서를 생성할 때는 반드시 `template/` 의 해
 | tasks/tasks.md | template/tasks.template.md |
 | .ai-context/implementation-context.md | template/implementation-context.template.md |
 
-template이 없는 경우:
-- docs 내 유사 문서를 참고하여 작성한다
-- 없으면 표준 구조를 사용한다
+`template/` 폴더가 존재하지 않는 경우, 사람에게 먼저 알린다.
+사람의 허가에 따라 docs 내 유사 문서를 참고하여 작성하거나 표준 구조에 맞춰 제작될 수 있다.
 
 ---
 
