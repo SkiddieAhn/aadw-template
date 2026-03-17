@@ -1,7 +1,5 @@
 # 프로젝트 규칙
 
-## 이 프로젝트의 개발 방식
-
 이 프로젝트는 **Document-driven AI development workflow** 방식으로 진행된다.
 
 * 사람: Human Document 작성, 요구사항 정의, 검증 게이트 담당
@@ -9,6 +7,30 @@
 
 AI는 항상 **아래 정의된 Task 실행 사이클을 따른다.**
 단계를 건너뛰거나 순서를 변경하지 않는다.
+
+---
+
+## 언어 정책
+
+| 대상 | 언어 |
+| --- | --- |
+| 코드 (변수명, 함수명, 클래스명) | 영어 |
+| 코드 주석 | 영어 |
+| 커밋 메시지 | 영어 |
+| 모든 문서 (.md) | 한국어 |
+| 로그 / 에러 메시지 | 영어 |
+
+---
+
+# 개발 환경 규칙
+
+코드를 처음 작성할 때는 사용자가 가상환경을 별도로 지정하지 않는 한,
+반드시 `uv venv`를 통해 가상환경을 구축한 후 진행한다.
+
+```
+uv venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+```
 
 ---
 
@@ -27,14 +49,16 @@ AI는 항상 **아래 정의된 Task 실행 사이클을 따른다.**
 
 docs/ 및 tasks/ 하위 문서를 생성할 때는 반드시 `template/` 의 해당 양식을 참고한다.
 
-| 생성할 문서                                | 참고 템플릿                                      |
-| ------------------------------------- | ------------------------------------------- |
-| docs/prd.md                           | template/prd.template.md                    |
-| docs/spec.md                          | template/spec.template.md                   |
-| docs/architecture.md                  | template/architecture.template.md           |
-| docs/roadmap.md                       | template/roadmap.template.md                |
-| tasks/tasks.md                        | template/tasks.template.md                  |
+| 생성할 문서 | 참고 템플릿 |
+| --- | --- |
+| docs/prd.md | template/prd.template.md |
+| docs/spec.md | template/spec.template.md |
+| docs/architecture.md | template/architecture.template.md |
+| docs/roadmap.md | template/roadmap.template.md |
+| tasks/tasks.md | template/tasks.template.md |
 | .ai-context/implementation-context.md | template/implementation-context.template.md |
+
+`template/` 폴더가 존재하지 않는 경우, 템플릿 없이 문서를 생성하되 사람에게 해당 사실을 먼저 알린다.
 
 ---
 
@@ -74,6 +98,30 @@ Task N 테스트 결과 보고서 작성                            ← AI
 tasks.md: IN PROGRESS → DONE                              ← AI
 implementation-context.md 업데이트                        ← AI
 ```
+
+---
+
+## 에스컬레이션 조건
+
+아래 상황에서는 즉시 작업을 중단하고 사람에게 보고한다. 임의로 판단하여 진행하지 않는다.
+
+| 조건 | 설명 |
+| --- | --- |
+| 테스트 3회 연속 실패 | 원인 파악 후 수정했으나 통과하지 못한 경우 |
+| Spec 모호 또는 충돌 | spec.md의 규칙이 불명확하거나 서로 상충하는 경우 |
+| 설계 결정 필요 | architecture.md에 없는 구조적 판단이 필요한 경우 |
+| 외부 의존성 문제 | 라이브러리, API, 환경 등 AI가 해결할 수 없는 외부 요인 |
+
+보고 형식:
+
+```
+[에스컬레이션]
+조건: [위 조건 중 해당 항목]
+상황: [구체적인 상황 설명]
+시도한 것: [AI가 시도한 내용]
+필요한 것: [사람에게 필요한 판단 또는 정보]
+```
+
 ---
 
 ## Task 의존성 및 재사용 원칙
