@@ -34,12 +34,31 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 
 ---
 
+# 디렉토리 구조
+
+```
+project-root/
+├── ai/                  — Claude 협업 아티팩트 (문서, 템플릿, 태스크)
+│   ├── document/        — 사람이 작성한 Human Document (요구사항 원본)
+│   ├── docs/            — AI가 생성한 개발 문서 (prd, spec, architecture, roadmap)
+│   ├── examples/        — AADW 워크플로우 참고 예시 프로젝트
+│   ├── tasks/           — Task 목록과 진행 상태
+│   └── template/        — 각 문서 작성을 위한 빈 양식 모음
+├── tests/               — 테스트 코드 및 테스트 보고서
+└── CLAUDE.md
+```
+
+협업 문서(`ai/`)와 구현 코드는 분리한다.
+AI는 협업 아티팩트를 `ai/` 하위에만 생성하고, 구현 파일은 최상위 경로에 둔다.
+
+---
+
 # 참고 문서 구조
 
-* `document/` : 사람이 작성한 Human Document
-* `docs/` : AI가 생성한 개발 문서 (prd, spec, architecture, roadmap)
-* `template/` : 각 문서 작성을 위한 빈 양식 모음
-* `tasks/` : Task 목록과 진행 상태
+* `ai/document/` : 사람이 작성한 Human Document
+* `ai/docs/` : AI가 생성한 개발 문서 (prd, spec, architecture, roadmap)
+* `ai/template/` : 각 문서 작성을 위한 빈 양식 모음
+* `ai/tasks/` : Task 목록과 진행 상태
 * `tests/` : 테스트 코드 및 테스트 보고서
 * `.ai-context/implementation-context.md` : 현재 프로젝트 상태 요약
 
@@ -47,19 +66,19 @@ source .venv/bin/activate  # Windows: .venv\Scripts\activate
 
 # 문서 생성 규칙
 
-docs/ 및 tasks/ 하위 문서를 생성할 때는 반드시 `template/` 의 해당 양식을 참고한다.
+ai/docs/ 및 ai/tasks/ 하위 문서를 생성할 때는 반드시 `ai/template/` 의 해당 양식을 참고한다.
 
 | 생성할 문서 | 참고 템플릿 |
 | --- | --- |
-| docs/prd.md | template/prd.template.md |
-| docs/spec.md | template/spec.template.md |
-| docs/architecture.md | template/architecture.template.md |
-| docs/roadmap.md | template/roadmap.template.md |
-| tasks/tasks.md | template/tasks.template.md |
-| .ai-context/implementation-context.md | template/implementation-context.template.md |
+| ai/docs/prd.md | ai/template/prd.template.md |
+| ai/docs/spec.md | ai/template/spec.template.md |
+| ai/docs/architecture.md | ai/template/architecture.template.md |
+| ai/docs/roadmap.md | ai/template/roadmap.template.md |
+| ai/tasks/tasks.md | ai/template/tasks.template.md |
+| .ai-context/implementation-context.md | ai/template/implementation-context.template.md |
 
-`template/` 폴더가 존재하지 않는 경우, 사람에게 먼저 알린다.
-사람의 허가에 따라 docs 내 유사 문서를 참고하여 작성하거나 표준 구조에 맞춰 제작될 수 있다.
+`ai/template/` 폴더가 존재하지 않는 경우, 사람에게 먼저 알린다.
+사람의 허가에 따라 ai/docs 내 유사 문서를 참고하여 작성하거나 표준 구조에 맞춰 제작될 수 있다.
 
 ---
 
@@ -340,8 +359,8 @@ Task 상태는 세 가지만 사용한다.
 상태: ✅ DONE
 
 참고 문서:
-docs/spec.md [절]
-docs/architecture.md [절]
+ai/docs/spec.md [절]
+ai/docs/architecture.md [절]
 
 선행 Task:
 [선행 Task 목록 또는 없음]
