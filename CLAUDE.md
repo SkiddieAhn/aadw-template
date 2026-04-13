@@ -177,6 +177,33 @@ tests/task_tests/test_task2.py
 
 ---
 
+# 테스트 픽스처 규칙
+
+각 Task의 테스트는 반드시 `test_save_fixture` 테스트를 포함한다.
+
+* 더미 입력 데이터와 변환/실행 결과를 `tests/fixtures/taskN/` 에 저장한다.
+* 저장된 파일은 사람이 직접 열어서 결과를 확인할 수 있어야 한다.
+* 텍스트로 읽기 어려운 포맷(parquet 등)이 있을 경우 사람이 읽을 수 있는 포맷(JSON, CSV 등)으로 함께 저장한다.
+
+예시
+
+```
+tests/fixtures/task4/
+├── dummy.parquet        — 입력 더미 데이터
+├── raw.jsonl            — 변환 결과 전체
+└── raw_pretty.json      — 상위 N개 pretty-print (사람 확인용)
+```
+
+픽스처 디렉토리는 테스트 실행 시마다 덮어쓴다.
+
+픽스처 결과는 반드시 테스트 결과 보고서(`tests/reports/taskN-test-report.md`)에도 포함한다.
+
+* 픽스처 파일 목록과 경로를 명시한다.
+* 출력 샘플(첫 번째 항목 등)을 보고서 본문에 직접 인용한다.
+* system prompt는 길이(chars)만 기록하고 전문은 생략한다.
+
+---
+
 # 테스트 결과 보고서 규칙
 
 AI는 테스트 실행 후 반드시 **테스트 결과 보고서**를 작성한다.
